@@ -11,7 +11,6 @@ import { CardModule } from '../shared/components/card/card.module';
       PhotoModule,
       PhotoFormModule,
       PhotoListModule,
-      CardModule,
         CommonModule
     ]
 })
