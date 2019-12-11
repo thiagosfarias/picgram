@@ -3,10 +3,9 @@ import { Directive, ElementRef, HostListener, Renderer, Input } from '@angular/c
 @Directive({
     selector: '[appDarkenOnHover]'
 })
-// tslint:disable-next-line: no-trailing-whitespace
 export class DarkenOnHoverDirective {
 
-    @Input() brightness = '65%';
+    @Input() brightness = '70%';
 
     constructor(
         private el: ElementRef,
@@ -23,5 +22,4 @@ export class DarkenOnHoverDirective {
     darkenOff() {
         this.render.setElementStyle(this.el.nativeElement, 'filter', 'brightness(100%)');
     }
-// tslint:disable-next-line: eofline
 }
