@@ -1,6 +1,6 @@
 <header class="fixed-top">
     <nav class="navbar navbar-light bg-info">
-        <a class="navbar-brand text-dark"><strong>PICGRAM</strong></a>
+        <a class="navbar-brand text-dark" [routerLink] = "['']"><strong>PICGRAM</strong></a>
 
         <div *ngIf="(user$ | async) as user; else login">
             <i class="fa fa-user-circle mr-1"></i>
@@ -13,6 +13,8 @@
                 <a [routerLink]="['']">Please, login!</a>
             </span>
         </ng-template>
-
     </nav>
+    <div class="fixed-top">
+      <app-alert></app-alert>
+  </div>
 </header>

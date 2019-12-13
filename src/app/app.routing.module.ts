@@ -5,50 +5,63 @@ import { PhotoListComponent } from './photos/photo-list/photo-list.component';
 import { PhotoFormComponent } from './photos/photo-form/photo-form.component';
 import { NotFoundComponent } from './errors/not-found/not-found.component';
 import { PhotoListResolver } from './photos/photo-list/photo-list.resolver';
-import { SignInComponent } from './home/signin/signin.component';
 import { AuthGuard } from './core/auth/auth.guard';
-import { SignUpComponent } from './home/signup/singup.component';
-import { HomeComponent } from './home/hom.component';
-
+import { PhotoDetailComponent } from './photos/photo-detail/photo-detail.component';
 
 const routes: Routes = [
-    {
-        path: '',
-        component: HomeComponent,
-        canActivate: [AuthGuard],
-        children: [
-          {
-              path: '',
-              component: SignInComponent,
-          },
-          {
-              path: 'signup',
-              component: SignUpComponent,
-          },
-      ]
+  {
+    path: '',
+    pathMatch: 'full',
+    redirectTo: 'home'
+  },
+  {
+    path: 'home',
+    loadChildren: './home/home.module#HomeModule'
+  },
+  {
+    path: 'user/:userName',
+    component: PhotoListComponent,
+    resolve: {
+      photos: PhotoListResolver
     },
-    {
-        path: 'user/:userName',
-        component: PhotoListComponent,
-        resolve: {
-            photos: PhotoListResolver
-        }
-    },
-    {
-        path: 'p/add',
-        component: PhotoFormComponent
-    },
-    {
-        path: '**',
-        component: NotFoundComponent
+    data: {
+      title: 'Feed'
     }
+  },
+  {
+    path: 'p/add',
+    component: PhotoFormComponent,
+    canActivate: [AuthGuard],
+    data: {
+      title: 'Upload'
+    }
+  },
+  {
+    path: 'p/:photoId',
+    component: PhotoDetailComponent,
+    data: {
+      title: 'Photo Details'
+    }
+  },
+  {
+    path: 'not-found',
+    component: NotFoundComponent,
+    data: {
+      title: 'Not Found'
+    }
+  },
+  {
+    path: '**',
+    redirectTo: 'not-found'
+  }
 ];
 
 @NgModule({
-    imports: [
-        RouterModule.forRoot(routes, {useHash: true})
-    ],
-    exports: [ RouterModule ]
+  imports: [
+    RouterModule.forRoot(routes, { useHash: true })
+  ],
+  exports: [RouterModule]
 })
 export class AppRoutingModule { }
+
 
